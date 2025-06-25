@@ -15,3 +15,7 @@
 - enumeration（信息枚举）
 - root privilege（root 权限）
 
+## Day 3 技能英语积累
+- Drupalgeddon2	（Drupal CMS 的 RCE 漏洞）
+- Privilege Escalation  （权限提升）
+- Identifying Assets （资产识别）
