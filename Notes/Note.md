@@ -19,3 +19,10 @@
 - Drupalgeddon2	（Drupal CMS 的 RCE 漏洞）
 - Privilege Escalation  （权限提升）
 - Identifying Assets （资产识别）
+
+## Day 4技能英语积累
+
+- exploit：利用（漏洞）
+- vulnerability：漏洞
+- payload：攻击载荷
+
