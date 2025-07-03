@@ -26,3 +26,8 @@
 - vulnerability：漏洞
 - payload：攻击载荷
 
+## Day 5技能英语积累
+
+- Toplogies：拓扑结构
+- mediums：媒介（以太网/光纤/同轴电缆/无线）
+- protocols：协议
