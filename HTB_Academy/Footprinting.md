@@ -233,3 +233,85 @@
 | `./odat.py all -s <FQDN/IP>`                                 | 执行各种扫描以收集有关 Oracle 数据库服务及其组件的信息。 |
 | `sqlplus <user>/<pass>@<FQDN/IP>/<db>`                       | 登录 Oracle 数据库。                                     |
 | `./odat.py utlfile -s <FQDN/IP> -d <db> -U <user> -P <pass> --sysdba --putFile C:\\insert\\path file.txt ./file.txt` | 使用 Oracle RDBMS 的 UTL_FILE 包上传文件。               |
+
+~~~apl
+wget https://download.oracle.com/otn_software/linux/instantclient/214000/instantclient-basic-linux.x64-21.4.0.0.0dbru.zip
+wget https://download.oracle.com/otn_software/linux/instantclient/214000/instantclient-sqlplus-linux.x64-21.4.0.0.0dbru.zip
+
+  #wget: 这是 Linux 命令，用于从网络上下载文件。
+
+  #https://...: 这是 Oracle 官方网站上 Oracle Instant Client 的下载链接。
+
+  #这是下载 Instant Client 的两个核心组件：
+
+  #instantclient-basic: 包含连接到 Oracle 数据库所必需的基本库文件。
+
+  #instantclient-sqlplus: 包含 sqlplus 工具，这是一个命令行工具，可以让你像在数据库服务器上一样，通过命令行与数据库进行交互。
+
+mkdir -p /opt/oracle:   # 创建一个名为 oracle 的目录，并将其放在 /opt 目录下。/opt 是一个标准的 Linux 目录，用于存放可选的、非系统的软件包。-p 参数确保如果父目录 /opt 不存在，也会一并创建。
+
+sudo unzip -d /opt/oracle instantclient-basic-linux.x64-21.4.0.0.0dbru.zip
+sudo unzip -d /opt/oracle instantclient-sqlplus-linux.x64-21.4.0.0.0dbru.zip
+
+  #unzip: 解压 .zip 格式的压缩文件。
+
+  #-d /opt/oracle: 指定解压的目标目录为 /opt/oracle。
+
+  #这将下载的 Instant Client 组件解压到我们刚刚创建的 /opt/oracle 目录中。解压后会生成一个名为 instantclient_21_4 的子目录，所有文件都在其中。
+
+export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_4:$LD_LIBRARY_PATH
+export PATH=$LD_LIBRARY_PATH:$PATH
+
+  #export: 在当前 shell 会话中设置环境变量。
+
+  #LD_LIBRARY_PATH: 这是一个非常重要的环境变量，它告诉系统在运行时去哪里查找共享库文件（如 .so 文件）。
+
+  #PATH: 这是一个告诉系统去哪里查找可执行程序的变量。
+
+  #第一行将 Instant Client 库文件所在的目录 (/opt/oracle/instantclient_21_4) 添加到 LD_LIBRARY_PATH 中。这确保了像 Python 的 cx_Oracle 模块在运行时能够找到所需的 Oracle 库文件。
+
+  #第二行将 Instant Client 的路径添加到 PATH 中。这使得你可以在任何目录下直接运行 sqlplus 等工具，而不需要输入完整路径。
+
+source ~/.bashrc
+
+  #source: 该命令用于在当前 shell 中执行一个脚本文件。
+
+~/.bashrc: #. 这是 Bash shell 的一个配置文件，通常用于存储用户自定义的命令和环境变量。 export 命令只对当前会话有效。如果你想让这些变量永久生效，你应该将它们添加到 ~/.bashrc 文件中，然后用 source 命令重新加载这个文件，使更改立即生效。但你给的代码只在当前会话中生效，这行代码在这里可能只是为了刷新环境变量。
+
+安装 ODAT 及其依赖
+这是下载 ODAT (Oracle Database Attacking Tool)，然后安装它所需的所有 Python 库和系统依赖。
+
+cd ~
+git clone https://github.com/quentinhardy/odat.git
+cd odat/
+git clone ...:
+cd odat/: 
+pip install python-libnmap
+git submodule init
+git submodule update
+pip3 install cx_Oracle
+sudo apt-get install python3-scapy -y
+sudo pip3 install colorlog termcolor passlib python-libnmap
+sudo apt-get install build-essential libgmp-dev -y
+pip3 install pycryptodome
+
+  # git submodule ...: odat 工具依赖于其他 Git 仓库中的代码，这些代码被称为 submodules。这两行命令用于初始化并更新这些子模块，确保所有依赖的代码都已正确下载。
+
+  # cx_Oracle: 这是一个 Python 库，用于连接和操作 Oracle 数据库。ODAT 工具需要它才能正常工作。
+
+apt-get install ...: 
+  # python3-scapy: Scapy 是一个强大的 Python 库，用于发送、嗅探、解析和伪造网络数据包。ODAT 可能使用它来进行网络层面的探测。
+
+  # colorlog, termcolor, passlib, python-libnmap: 这些都是 ODAT 工具所需的 Python 库，用于日志着色、终端文本颜色、密码哈希处理以及 Nmap 集成。
+
+build-essential, libgmp-dev:
+
+  # build-essential: 这是一个元包，包含了编译软件所必需的基本工具（如 gcc, g++, make 等）。
+
+libgmp-dev: GMP (GNU Multiple Precision Arithmetic Library) 的开发库。
+
+pycryptodome: 这是一个加密库，ODAT 可能使用它来处理加密和哈希相关的操作。
+
+为什么这样做？: ODAT 是一个功能复杂的工具，需要许多外部库和系统工具才能正常运行。这些命令就是为了确保所有依赖项都已安装到位，从而让 ODAT 能够顺利编译和执行。
+~~~
+
