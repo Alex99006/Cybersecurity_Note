@@ -190,7 +190,9 @@
 | `msf6 auxiliary(scanner/ipmi/ipmi_version)`    | 使用 Metasploit 检测 IPMI 版本。   |
 | `msf6 auxiliary(scanner/ipmi/ipmi_dumphashes)` | 使用 Metasploit 转储 IPMI 哈希值。 |
 
- 
+
+
+
 
 
 
