@@ -1,6 +1,5 @@
 ## ==readelf 工具的使用==
 
-~~~apl
 # readelf 命令详解
 
 `readelf` 是 GNU Binutils 提供的一个工具，用于显示 ELF (Executable and Linkable Format) 文件的信息。它可以查看 ELF 文件头、节区、段、符号表、调试信息等，非常适合逆向分析、调试和二进制研究。
@@ -8,9 +7,9 @@
 ---
 
 ## 基本语法
-```bash
+```apl
 readelf <option(s)> elf-file(s)
-~~~
+```
 
 
 
