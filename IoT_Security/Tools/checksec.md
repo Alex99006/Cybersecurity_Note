@@ -392,4 +392,4 @@ nm ./binary | grep strcpy
 
 ------
 
-![checksec_ex_img](/Users/Hacker_learn/Cybersecurity_Note/Image/checksec_ex_img.png)
+![checksec_ex_img](/Image/checksec_ex_img.png)
